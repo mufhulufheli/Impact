@@ -1,6 +1,4 @@
 import java.util.Collection;
-import java.util.List;
-
 /**
  * @author Werner
  *
@@ -22,10 +20,6 @@ public interface NumberRangeSummarizerInterface {
 
     //collect the input
     Collection<Integer> collect(String input);
-
-    //get the summarized string
-
-
     //get the summarized string
     String summarizeCollection(Collection<Integer> input);
 

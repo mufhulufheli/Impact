@@ -9,15 +9,15 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
 {
     public static void main(String[] args)
     {
-        NumberRangeSummarizer nr = new NumberRangeSummarizer();
+        NumberRangeSummarizer numberRange = new NumberRangeSummarizer();
         String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         try {
-            Collection<Integer> collectionInput = (List<Integer>)nr.collect(input);
-            String range = nr.summarizeCollection(collectionInput);
+            Collection<Integer> collectionInput = numberRange.collect(input);
+            String range = numberRange.summarizeCollection(collectionInput);
 
             System.out.println(range);
         } catch (ClassCastException exc) {
-            System.out.println("Please review the string there might be a character");
+            System.out.println("Error , check if the string doesn't contain a character");
         }
 
 
@@ -26,8 +26,6 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
     /**
      *
      * TODO : Add method comment
-
-     * @param input
      * @return
      *
      */
@@ -66,11 +64,12 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
     public String summarizeCollection(Collection<Integer> input)
     {
         int count = 0;
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringbuilder = new StringBuilder();
 
 
         //collection class created
-        ArrayList<Integer> inputList = new ArrayList<Integer>(input);
+        ArrayList<Integer> inputList;
+        inputList = new ArrayList<>(input);
         int length = inputList.size();
 
 
@@ -81,16 +80,16 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
             // CATERS FOR THE LAST ELEMENT OF THE LIST
             if (a == length - 1)
             {
-                if(inputList.get(length-2) != inputList.get(length-1))
+                if(!inputList.get(length - 2).equals(inputList.get(length - 1)))
                 {
-                    sb.append(inputList.get(a) + ",");
+                    stringbuilder.append(inputList.get(a)).append(",");
                 }
                 break;
             }
             // START IS FIRST ELEMENT
-            start = (Integer)inputList.get(a);
+            start = inputList.get(a);
 
-            next = (Integer)inputList.get(a + 1);
+            next = inputList.get(a + 1);
             if (next == start + 1)
             {
                 count++;
@@ -102,8 +101,8 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
                 // TAKING THE BEGINING OF THE RANGE AND WHERE IT ENDS!!!
                 for (int i = a + 1; ; i++)
                 {
-                    start = (Integer)inputList.get(i);
-                    next = (Integer)inputList.get(i + 1);
+                    start = inputList.get(i);
+                    next = inputList.get(i + 1);
 
                     if (next == start + 1)
                     {
@@ -114,7 +113,7 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
                         a = i;
                         if (count != 0)
                         {
-                            sb.append(lowestBound + " - " + (Integer)inputList.get(i) + ", ");
+                            stringbuilder.append(lowestBound).append("-").append(inputList.get(i)).append(", ");
                         }
                         break;
                     }
@@ -124,11 +123,11 @@ public class NumberRangeSummarizer implements NumberRangeSummarizerInterface
             else
             {
                 // passes past the ones that have no range.
-                sb.append(start + ", ");
+                stringbuilder.append(start).append(", ");
             }
         }
         //CONCATENATION
-        String ranges = sb.toString();
+        String ranges = stringbuilder.toString();
         return ranges.substring(0, ranges.length() - 1);
     }
 
